@@ -1,0 +1,117 @@
+<body>
+  <aside class="sidebar">
+    <button class="sidebar-toggle" id="sidebar-toggle">
+      <i data-feather="chevron-left"></i>
+    </button>
+    <div class="logo-container">
+      <i data-feather="package" size="24"></i>
+      <h2>Gestão</h2>
+    </div>
+    <nav>
+      <a routerLink="/mainLogin" class="active">
+        <i data-feather="home"></i>
+        <span>Início</span>
+      </a>
+      <a routerLink="/morador">
+        <i data-feather="users"></i>
+        <span>Moradores</span>
+      </a>
+      <a routerLink="/entregas">
+        <i data-feather="bell"></i>
+        <span>Entregas</span>
+      </a>
+    </nav>
+
+    <div class="user-profile">
+      <div class="user-avatar">P</div>
+      <div class="user-info">
+        <div class="user-name">Porteiro</div>
+        <div class="user-role">Administrador</div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="content">
+    <div class="mobile-header">
+      <button class="mobile-toggle-btn">
+        <i data-feather="menu"></i>
+      </button>
+    </div>
+
+    <div class="top-bar">
+      <div class="search-container">
+        <i data-feather="search" size="18"></i>
+        <input type="text" placeholder="Pesquisar...">
+      </div>
+
+      <div class="notification-icon">
+        <i data-feather="bell" size="20"></i>
+        <span class="notification-badge">3</span>
+      </div>
+    </div>
+
+    <header>
+      <h1>Dashboard de Encomendas</h1>
+      <p>Bem-vindo ao sistema de gestão de encomendas do condomínio.</p>
+    </header>
+
+    <div class="recent-deliveries">
+      <div class="section-header">
+        <h3 class="section-title">Encomendas Recentes</h3>
+        <a routerLink="/entregas" class="view-all">
+          Ver tudo <i data-feather="chevron-right" size="16"></i>
+        </a>
+      </div>
+
+      <table class="deliveries-table">
+  <thead>
+    <tr>
+      <th>Morador</th>
+      <th>Apartamento</th>
+      <th>Data de Recebimento</th>
+      <th>Descrição</th>
+  
+    </tr>
+  </thead>
+<tbody>
+  <ng-container *ngFor="let morador of moradores">
+    <tr *ngFor="let entrega of morador.encomendas">
+      <td>{{ morador.nome }}</td>
+      <td>{{ morador.apartamento }}</td>
+      <td>{{ entrega.dataRecebimento | date: 'dd/MM/yyyy' }}</td>
+      <td>{{ entrega.descricao }}</td>
+
+    </tr>
+  </ng-container>
+</tbody>
+
+</table>
+    </div>
+  </main>
+
+  <div class="logout-container">
+    <a routerLink="/login" class="logout-button">
+      <i data-feather="log-out"></i>
+      <span>Sair</span>
+    </a>
+  </div>
+
+  <script>
+    feather.replace();
+
+    document.getElementById('sidebar-toggle')?.addEventListener('click', function () {
+      document.body.classList.toggle('collapsed-sidebar');
+      const icon = this.querySelector('i');
+      if (document.body.classList.contains('collapsed-sidebar')) {
+        icon.setAttribute('data-feather', 'chevron-right');
+      } else {
+        icon.setAttribute('data-feather', 'chevron-left');
+      }
+      feather.replace();
+    });
+
+    document.querySelector('.mobile-toggle-btn')?.addEventListener('click', function () {
+      document.querySelector('.sidebar')?.classList.toggle('active');
+    });
+  </script>
+</body>
